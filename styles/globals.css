@@ -1,0 +1,89 @@
+:root {
+	--settings-bg: rgb(80, 80, 80);
+}
+
+h2 {
+	margin: 0;
+}
+
+body {
+	font-family: monospace;
+	background-color: rgb(43, 43, 43);
+	color: white;
+}
+
+.synthesizer {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+}
+
+.settings {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 0.25rem;
+}
+
+.setting {
+	padding: 1rem;
+	background-color: var(--settings-bg);
+	border-radius: 0.25rem;
+}
+
+/* ********* */
+/* pianoroll */
+/* ********* */
+
+.pianoroll {
+	font-size: 0;
+	grid-template-columns: repeat(3, 1fr);
+}
+
+.pianoroll div {
+	position: absolute;
+	display: flex;
+	gap: 2px;
+}
+
+.pianoroll div .note {
+	border: none;
+	width: 2rem;
+
+	&:hover {
+		background-color: gray;
+	}
+}
+
+.black {
+	transform: translateX(1rem);
+	height: 5rem;
+}
+
+.white {
+	height: 10rem;
+}
+
+.white .note {
+	background-color: white;
+}
+
+.black .note {
+	background-color: black;
+}
+
+.empty {
+	opacity: 0;
+}
+
+/* media queries */
+@media (max-width: 800px) {
+	.settings {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@media (max-width: 500px) {
+	.settings {
+		grid-template-columns: 1fr;
+	}
+}
