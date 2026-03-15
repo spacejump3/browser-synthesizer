@@ -36,19 +36,19 @@
 				<div class="setting adsr">
 					<h2>ADSR</h2>
 					<div>
-						<input type="range" id="attack" min="0" max="100" value="10" />
+						<input type="range" id="attack" min="0" max="1" value=".1" step="0.01" />
 						<label for="attack">Attack</label>
 					</div>
 					<div>
-						<input type="range" id="decay" min="0" max="100" value="20" />
+						<input type="range" id="decay" min="0" max="1" value=".2" step="0.01" />
 						<label for="decay">Decay</label>
 					</div>
 					<div>
-						<input type="range" id="sustain" min="0" max="100" value="80" />
+						<input type="range" id="sustain" min="0" max="1" value=".7" step="0.01" />
 						<label for="sustain">Sustain</label>
 					</div>
 					<div>
-						<input type="range" id="release" min="0" max="100" value="15" />
+						<input type="range" id="release" min="0" max="20" value=".5" step="0.01" />
 						<label for="release">Release</label>
 					</div>
 				</div>
@@ -63,42 +63,82 @@
 						</div>
 						<div>
 							<input type="radio" id="hpf" name="filter-type" />
-							<label for="hpf">Square wave</label>
+							<label for="hpf">High pass</label>
 						</div>
 						<div>
 							<input type="radio" id="bpf" name="filter-type" />
-							<label for="bpf">Saw wave</label>
+							<label for="bpf">Band pass</label>
 						</div>
 
 						<!-- cutoff and resonance -->
 						<div>
-							<input type="range" id="cutoff" min="0" max="100" value="100" />
+							<input type="range" id="cutoff" min="20" max="20000" value="20000" />
 							<label for="cutoff">Filter cutoff</label>
 						</div>
 					</div>
 					<div>
-						<input type="range" id="resonance" min="0" max="100" value="0" />
+						<input type="range" id="resonance" min="0.1" max="20" value="1" />
 						<label for="resonance">Resonance</label>
 					</div>
 				</div>
 			</section>
-			<section class="pianoroll octave-4">
-				<div class="white">
-					<button class="note" data-note="C4"></button>
-					<button class="note" data-note="D4"></button>
-					<button class="note" data-note="E4"></button>
-					<button class="note" data-note="F4"></button>
-					<button class="note" data-note="G4"></button>
-					<button class="note" data-note="A4"></button>
-					<button class="note" data-note="B4"></button>
+			<section class="pianoroll">
+				<div class="piano-container octave-3">
+					<div class="white">
+						<button class="note" data-note="C3"></button>
+						<button class="note" data-note="D3"></button>
+						<button class="note" data-note="E3"></button>
+						<button class="note" data-note="F3"></button>
+						<button class="note" data-note="G3"></button>
+						<button class="note" data-note="A3"></button>
+						<button class="note" data-note="B3"></button>
+					</div>
+					<div class="black">
+						<button class="note" data-note="C#3"></button>
+						<button class="note" data-note="D#3"></button>
+						<button class="note empty"></button>
+						<button class="note" data-note="F#3"></button>
+						<button class="note" data-note="G#3"></button>
+						<button class="note" data-note="A#3"></button>
+					</div>
 				</div>
-				<div class="black">
-					<button class="note" data-note="C#4"></button>
-					<button class="note" data-note="D#4"></button>
-					<button class="note empty"></button>
-					<button class="note" data-note="F#4"></button>
-					<button class="note" data-note="G#4"></button>
-					<button class="note" data-note="A#4"></button>
+				<div class="piano-container octave-4">
+					<div class="white">
+						<button class="note" data-note="C4"></button>
+						<button class="note" data-note="D4"></button>
+						<button class="note" data-note="E4"></button>
+						<button class="note" data-note="F4"></button>
+						<button class="note" data-note="G4"></button>
+						<button class="note" data-note="A4"></button>
+						<button class="note" data-note="B4"></button>
+					</div>
+					<div class="black">
+						<button class="note" data-note="C#4"></button>
+						<button class="note" data-note="D#4"></button>
+						<button class="note empty"></button>
+						<button class="note" data-note="F#4"></button>
+						<button class="note" data-note="G#4"></button>
+						<button class="note" data-note="A#4"></button>
+					</div>
+				</div>
+				<div class="piano-container octave-5">
+					<div class="white">
+						<button class="note" data-note="C5"></button>
+						<button class="note" data-note="D5"></button>
+						<button class="note" data-note="E5"></button>
+						<button class="note" data-note="F5"></button>
+						<button class="note" data-note="G5"></button>
+						<button class="note" data-note="A5"></button>
+						<button class="note" data-note="B5"></button>
+					</div>
+					<div class="black">
+						<button class="note" data-note="C#5"></button>
+						<button class="note" data-note="D#5"></button>
+						<button class="note empty"></button>
+						<button class="note" data-note="F#5"></button>
+						<button class="note" data-note="G#5"></button>
+						<button class="note" data-note="A#5"></button>
+					</div>
 				</div>
 			</section>
 		</div>
