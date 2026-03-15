@@ -48,10 +48,6 @@ body {
 .pianoroll div .note {
 	border: none;
 	width: 2rem;
-
-	&:hover {
-		background-color: gray;
-	}
 }
 
 .black {
@@ -63,12 +59,18 @@ body {
 	height: 10rem;
 }
 
-.white .note {
+.note {
 	background-color: white;
 }
 
 .black .note {
 	background-color: black;
+}
+
+.note.active {
+	background-color: turquoise;
+	transform: translateY(0.25rem);
+	transition: 0.1s;
 }
 
 .empty {
