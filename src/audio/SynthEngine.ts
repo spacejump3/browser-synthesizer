@@ -1,13 +1,15 @@
 import * as Tone from 'tone';
 
+type OscType = 'sine' | 'square' | 'sawtooth';
+
 export class SynthEngine {
-	private synth: Tone.Synth;
+	private synth: Tone.PolySynth;
 	private volume: Tone.Volume;
 
 	constructor() {
 		this.volume = new Tone.Volume(-30);
 
-		this.synth = new Tone.Synth({
+		this.synth = new Tone.PolySynth(Tone.Synth, {
 			oscillator: {
 				type: 'sine',
 			},
@@ -25,15 +27,17 @@ export class SynthEngine {
 		this.synth.triggerAttack(note);
 	}
 
-	release() {
-		this.synth.triggerRelease();
+	release(note: string) {
+		this.synth.triggerRelease(note);
 	}
 
 	setVolume(value: number) {
 		this.volume.volume.value = value;
 	}
 
-	setOscillator(type: Tone.ToneOscillatorType) {
-		this.synth.oscillator.type = type;
+	setOscillator(type: OscType) {
+		this.synth.set({
+			oscillator: { type },
+		});
 	}
 }
