@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Browser synthesizer</title>
+		<link rel="stylesheet" href="./styles/globals.css" />
+	</head>
+	<body>
+		<h1>Synthesizer</h1>
+		<p>Use your computer keyboard to play notes!</p>
+		<div class="synthesizer">
+			<section class="settings">
+				<!-- oscillators -->
+				<div class="setting oscillators">
+					<h2>Oscillators</h2>
+					<div>
+						<input type="range" id="volume" min="-60" max="0" value="-30" step="1" />
+						<label for="volume">Volume</label>
+					</div>
+					<div>
+						<input type="radio" id="sine" name="oscillator" value="sine" checked />
+						<label for="sine">Sine wave</label>
+					</div>
+					<div>
+						<input type="radio" id="square" name="oscillator" value="square" />
+						<label for="square">Square wave</label>
+					</div>
+					<div>
+						<input type="radio" id="saw" name="oscillator" value="sawtooth" />
+						<label for="saw">Saw wave</label>
+					</div>
+				</div>
+
+				<!-- ADSR -->
+				<div class="setting adsr">
+					<h2>ADSR</h2>
+					<div>
+						<input type="range" id="attack" min="0" max="100" value="10" />
+						<label for="attack">Attack</label>
+					</div>
+					<div>
+						<input type="range" id="decay" min="0" max="100" value="20" />
+						<label for="decay">Decay</label>
+					</div>
+					<div>
+						<input type="range" id="sustain" min="0" max="100" value="80" />
+						<label for="sustain">Sustain</label>
+					</div>
+					<div>
+						<input type="range" id="release" min="0" max="100" value="15" />
+						<label for="release">Release</label>
+					</div>
+				</div>
+
+				<!-- filter -->
+				<div class="setting filter">
+					<h2>Filter</h2>
+					<div class="filter-type">
+						<div>
+							<input type="radio" id="lpf" name="filter-type" checked />
+							<label for="lpf">Low pass</label>
+						</div>
+						<div>
+							<input type="radio" id="hpf" name="filter-type" />
+							<label for="hpf">Square wave</label>
+						</div>
+						<div>
+							<input type="radio" id="bpf" name="filter-type" />
+							<label for="bpf">Saw wave</label>
+						</div>
+
+						<!-- cutoff and resonance -->
+						<div>
+							<input type="range" id="cutoff" min="0" max="100" value="100" />
+							<label for="cutoff">Filter cutoff</label>
+						</div>
+					</div>
+					<div>
+						<input type="range" id="resonance" min="0" max="100" value="0" />
+						<label for="resonance">Resonance</label>
+					</div>
+				</div>
+			</section>
+			<section class="pianoroll octave-4">
+				<div class="white">
+					<button class="note" data-note="C4"></button>
+					<button class="note" data-note="D4"></button>
+					<button class="note" data-note="E4"></button>
+					<button class="note" data-note="F4"></button>
+					<button class="note" data-note="G4"></button>
+					<button class="note" data-note="A4"></button>
+					<button class="note" data-note="B4"></button>
+				</div>
+				<div class="black">
+					<button class="note" data-note="C#4"></button>
+					<button class="note" data-note="D#4"></button>
+					<button class="note empty"></button>
+					<button class="note" data-note="F#4"></button>
+					<button class="note" data-note="G#4"></button>
+					<button class="note" data-note="A#4"></button>
+				</div>
+			</section>
+		</div>
+		<script type="module" src="/src/main.ts"></script>
+	</body>
+</html>
