@@ -99,3 +99,47 @@ oscillators.forEach((button) => {
 		synth.setOscillator(type);
 	});
 });
+
+/* ************ */
+/* adsr section */
+/* ************ */
+const attackSlider = document.getElementById('attack') as HTMLInputElement;
+const decaySlider = document.getElementById('decay') as HTMLInputElement;
+const sustainSlider = document.getElementById('sustain') as HTMLInputElement;
+const releaseSlider = document.getElementById('release') as HTMLInputElement;
+
+attackSlider.addEventListener('input', () => {
+	synth.setAttack(Number(attackSlider.value));
+});
+
+decaySlider.addEventListener('input', () => {
+	synth.setDecay(Number(decaySlider.value));
+});
+
+sustainSlider.addEventListener('input', () => {
+	synth.setSustain(Number(sustainSlider.value));
+});
+
+releaseSlider.addEventListener('input', () => {
+	synth.setRelease(Number(releaseSlider.value));
+});
+
+/* ************** */
+/* filter section */
+/* ************** */
+
+const cutoffSlider = document.getElementById('cutoff') as HTMLInputElement;
+const resonanceSlider = document.getElementById('resonance') as HTMLInputElement;
+
+cutoffSlider.addEventListener('input', () => {
+	const min = 20;
+	const max = 20000;
+	const value = Number(cutoffSlider.value);
+	// convert linear 0–20000 to exponential scale
+	const expValue = min * Math.pow(max / min, value / 20000);
+	synth.setFilterFrequency(expValue);
+});
+
+resonanceSlider.addEventListener('input', () => {
+	synth.setFilterQ(Number(resonanceSlider.value));
+});
