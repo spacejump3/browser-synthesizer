@@ -185,3 +185,30 @@ cutoffSlider.addEventListener('input', () => {
 resonanceSlider.addEventListener('input', () => {
 	synth.setFilterQ(Number(resonanceSlider.value));
 });
+
+// filter envelope
+const filterEnvAttackSlider = document.getElementById('filter-attack') as HTMLInputElement;
+const filterEnvDecaySlider = document.getElementById('filter-decay') as HTMLInputElement;
+const filterEnvSustainSlider = document.getElementById('filter-sustain') as HTMLInputElement;
+const filterEnvReleaseSlider = document.getElementById('filter-release') as HTMLInputElement;
+const filterEnvAmountSlider = document.getElementById('mod-amount') as HTMLInputElement;
+
+filterEnvAttackSlider.addEventListener('input', () => {
+	synth.setFilterEnvAttack(Number(filterEnvAttackSlider.value));
+});
+
+filterEnvDecaySlider.addEventListener('input', () => {
+	synth.setFilterEnvDecay(Number(filterEnvDecaySlider.value));
+});
+
+filterEnvSustainSlider.addEventListener('input', () => {
+	synth.setFilterEnvSustain(Number(filterEnvSustainSlider.value));
+});
+
+filterEnvReleaseSlider.addEventListener('input', () => {
+	synth.setFilterEnvRelease(Number(filterEnvReleaseSlider.value));
+});
+
+filterEnvAmountSlider.addEventListener('input', () => {
+	synth.setFilterEnvAmount(Number(filterEnvAmountSlider.value));
+});
