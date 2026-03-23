@@ -1,7 +1,8 @@
-import { Oscillator } from 'tone';
 import { SynthEngine } from './audio/SynthEngine';
 
 const synth = new SynthEngine();
+let isMouseDown = false;
+let currentNote: string | null = null;
 
 // browsers require interaction before sound starts
 document.body.addEventListener(
@@ -15,9 +16,26 @@ document.body.addEventListener(
 /* ********* */
 /* pianoroll */
 /* ********* */
+
+// global mouse press / release
+document.addEventListener('mousedown', () => {
+	isMouseDown = true;
+});
+
+document.addEventListener('mouseup', () => {
+	isMouseDown = false;
+
+	if (currentNote) {
+		synth.release(currentNote);
+		const el = document.querySelector(`[data-note="${currentNote}"]`);
+		el?.classList.remove('active');
+		currentNote = null;
+	}
+});
+
 const keys = document.querySelectorAll<HTMLButtonElement>('.note');
 
-// mouse controls
+// mouse & mobile controls
 keys.forEach((key) => {
 	const note = key.dataset.note!;
 
@@ -25,6 +43,7 @@ keys.forEach((key) => {
 	key.addEventListener('mousedown', () => {
 		synth.play(note);
 		key.classList.add('active');
+		currentNote = note;
 	});
 
 	// release note
@@ -32,6 +51,29 @@ keys.forEach((key) => {
 		synth.release(note);
 		key.classList.remove('active');
 	});
+});
+
+document.addEventListener('mousemove', (e) => {
+	if (!isMouseDown) return;
+
+	const element = document.elementFromPoint(e.clientX, e.clientY);
+
+	if (!element || !element.classList.contains('note')) return;
+
+	const note = element.getAttribute('data-note');
+	if (!note || note === currentNote) return;
+
+	// release previous note
+	if (currentNote) {
+		synth.release(currentNote);
+		const prev = document.querySelector(`[data-note="${currentNote}"]`);
+		prev?.classList.remove('active');
+	}
+
+	// play new note
+	synth.play(note);
+	element.classList.add('active');
+	currentNote = note;
 });
 
 // keyboard controls
