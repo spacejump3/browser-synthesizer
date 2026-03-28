@@ -7,6 +7,7 @@ export class SynthEngine {
 	private volume: Tone.Volume;
 	private filter: Tone.Filter;
 	private filterEnv: Tone.FrequencyEnvelope;
+	private filterFrequency = 20000;
 
 	constructor() {
 		this.volume = new Tone.Volume(-30);
@@ -16,7 +17,7 @@ export class SynthEngine {
 				type: 'sine',
 			},
 			envelope: {
-				attack: 0.1,
+				attack: 0,
 				decay: 0.2,
 				sustain: 0.7,
 				release: 0.5,
@@ -25,7 +26,7 @@ export class SynthEngine {
 
 		this.filter = new Tone.Filter({
 			type: 'lowpass',
-			frequency: 20000,
+			frequency: this.filterFrequency,
 			Q: 1,
 		});
 
@@ -34,7 +35,7 @@ export class SynthEngine {
 			decay: 0.2,
 			sustain: 0.7,
 			release: 0.5,
-			baseFrequency: 200,
+			baseFrequency: this.filterFrequency,
 			octaves: 4,
 		});
 
@@ -115,7 +116,12 @@ export class SynthEngine {
 	}
 
 	setFilterFrequency(value: number) {
-		this.filter.frequency.value = value;
+		this.filterFrequency = value;
+		this.filterEnv.baseFrequency = value;
+	}
+
+	setFilterType(type: 'lowpass' | 'highpass' | 'bandpass') {
+		this.filter.type = type;
 	}
 
 	setFilterQ(value: number) {

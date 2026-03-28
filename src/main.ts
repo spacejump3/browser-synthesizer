@@ -186,6 +186,21 @@ resonanceSlider.addEventListener('input', () => {
 	synth.setFilterQ(Number(resonanceSlider.value));
 });
 
+const filterTypeButtons = document.querySelectorAll<HTMLInputElement>("input[name='filter-type']");
+const filterTypeMap: Record<string, 'lowpass' | 'highpass' | 'bandpass'> = {
+	lpf: 'lowpass',
+	hpf: 'highpass',
+	bpf: 'bandpass',
+};
+filterTypeButtons.forEach((button) => {
+	button.addEventListener('change', () => {
+		if (button.checked) {
+			const type = filterTypeMap[button.id] ?? (button.value as 'lowpass' | 'highpass' | 'bandpass');
+			synth.setFilterType(type);
+		}
+	});
+});
+
 // filter envelope
 const filterEnvAttackSlider = document.getElementById('filter-attack') as HTMLInputElement;
 const filterEnvDecaySlider = document.getElementById('filter-decay') as HTMLInputElement;
