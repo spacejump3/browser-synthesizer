@@ -32,7 +32,7 @@ export class SynthEngine {
 
 		this.filter = new Tone.Filter({
 			type: 'lowpass',
-			frequency: this.filterFrequency,
+			frequency: 20000,
 			Q: 1,
 		});
 
