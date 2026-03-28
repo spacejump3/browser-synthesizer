@@ -169,9 +169,9 @@ releaseSlider.addEventListener('input', () => {
 /* ************** */
 /* filter section */
 /* ************** */
-
 const cutoffSlider = document.getElementById('cutoff') as HTMLInputElement;
 const resonanceSlider = document.getElementById('resonance') as HTMLInputElement;
+const filterTypeInputs = document.querySelectorAll<HTMLInputElement>("input[name='filter-type']");
 
 cutoffSlider.addEventListener('input', () => {
 	const min = 20;
@@ -184,6 +184,13 @@ cutoffSlider.addEventListener('input', () => {
 
 resonanceSlider.addEventListener('input', () => {
 	synth.setFilterQ(Number(resonanceSlider.value));
+});
+
+filterTypeInputs.forEach((input) => {
+	input.addEventListener('change', () => {
+		if (!input.checked) return;
+		synth.setFilterType(input.value as 'lowpass' | 'highpass' | 'bandpass');
+	});
 });
 
 // filter envelope
@@ -212,3 +219,27 @@ filterEnvReleaseSlider.addEventListener('input', () => {
 filterEnvAmountSlider.addEventListener('input', () => {
 	synth.setFilterEnvAmount(Number(filterEnvAmountSlider.value));
 });
+
+/* *************** */
+/* effects section */
+/* *************** */
+const delayEnableCheckbox = document.getElementById('delay-enable') as HTMLInputElement;
+const delayRateSlider = document.getElementById('delay-strength') as HTMLInputElement;
+const reverbEnableCheckbox = document.getElementById('reverb-enable') as HTMLInputElement;
+const reverbDecaySlider = document.getElementById('reverb-decay') as HTMLInputElement;
+
+function updateDelay() {
+	synth.setDelayHz(Number(delayRateSlider.value));
+	synth.setDelayActive(delayEnableCheckbox.checked);
+}
+
+function updateReverb() {
+	synth.setReverbDecay(Number(reverbDecaySlider.value));
+	synth.setReverbActive(reverbEnableCheckbox.checked);
+}
+
+delayEnableCheckbox.addEventListener('change', updateDelay);
+delayRateSlider.addEventListener('input', updateDelay);
+
+reverbEnableCheckbox.addEventListener('change', updateReverb);
+reverbDecaySlider.addEventListener('input', updateReverb);
