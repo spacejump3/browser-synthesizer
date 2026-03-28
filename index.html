@@ -36,7 +36,7 @@
 				<div class="setting adsr">
 					<h2>ADSR</h2>
 					<div>
-						<input type="range" id="attack" min="0" max="1" value=".1" step="0.01" />
+						<input type="range" id="attack" min="0" max="1" value="0" step="0.01" />
 						<label for="attack">Attack</label>
 					</div>
 					<div>
@@ -58,15 +58,15 @@
 					<h2>Filter</h2>
 					<div class="filter-type">
 						<div>
-							<input type="radio" id="lpf" name="filter-type" checked />
+							<input type="radio" id="lpf" name="filter-type" value="lowpass" checked />
 							<label for="lpf">Low pass</label>
 						</div>
 						<div>
-							<input type="radio" id="hpf" name="filter-type" />
+							<input type="radio" id="hpf" name="filter-type" value="highpass" />
 							<label for="hpf">High pass</label>
 						</div>
 						<div>
-							<input type="radio" id="bpf" name="filter-type" />
+							<input type="radio" id="bpf" name="filter-type" value="bandpass" />
 							<label for="bpf">Band pass</label>
 						</div>
 					</div>
