@@ -7,7 +7,13 @@ export class SynthEngine {
 	private volume: Tone.Volume;
 	private filter: Tone.Filter;
 	private filterEnv: Tone.FrequencyEnvelope;
-	private filterFrequency = 20000;
+	private delay: Tone.FeedbackDelay;
+	private reverb: Tone.Reverb;
+	private delayHz = 1;
+	private delayWet = 0.4;
+	private reverbWet = 0.4;
+	private delayEnabled = false;
+	private reverbEnabled = false;
 
 	constructor() {
 		this.volume = new Tone.Volume(-30);
@@ -35,18 +41,32 @@ export class SynthEngine {
 			decay: 0.2,
 			sustain: 0.7,
 			release: 0.5,
-			baseFrequency: this.filterFrequency,
-			octaves: 4,
+			baseFrequency: 20000,
+			octaves: 0,
+		});
+
+		this.delay = new Tone.FeedbackDelay({
+			delayTime: 1 / this.delayHz,
+			feedback: 0.75,
+			wet: 0,
+		});
+
+		this.reverb = new Tone.Reverb({
+			decay: 1.5,
+			wet: 0,
 		});
 
 		this.filterEnv.connect(this.filter.frequency);
 		this.synth.connect(this.filter);
-		this.filter.connect(this.volume);
+		this.filter.connect(this.delay);
+		this.delay.connect(this.reverb);
+		this.reverb.connect(this.volume);
 		this.volume.toDestination();
 	}
 
 	async start() {
 		await Tone.start();
+		await this.reverb.generate();
 	}
 
 	play(note: string) {
@@ -61,6 +81,27 @@ export class SynthEngine {
 
 	setVolume(value: number) {
 		this.volume.volume.value = value;
+	}
+
+	setDelayActive(enabled: boolean) {
+		this.delayEnabled = enabled;
+		this.delay.wet.value = enabled ? this.delayWet : 0;
+	}
+
+	setDelayHz(value: number) {
+		const hz = Math.max(0.1, Math.min(20, value));
+		this.delayHz = hz;
+		this.delay.delayTime.value = 1 / hz;
+	}
+
+	setReverbActive(enabled: boolean) {
+		this.reverbEnabled = enabled;
+		this.reverb.wet.value = enabled ? this.reverbWet : 0;
+	}
+
+	setReverbDecay(value: number) {
+		const decay = Math.max(0.1, Math.min(10, value));
+		this.reverb.decay = decay;
 	}
 
 	setOscillator(type: OscType) {
@@ -116,8 +157,9 @@ export class SynthEngine {
 	}
 
 	setFilterFrequency(value: number) {
-		this.filterFrequency = value;
-		this.filterEnv.baseFrequency = value;
+		const clamped = Math.max(20, Math.min(20000, value));
+		this.filter.frequency.value = clamped;
+		this.filterEnv.baseFrequency = clamped;
 	}
 
 	setFilterType(type: 'lowpass' | 'highpass' | 'bandpass') {
