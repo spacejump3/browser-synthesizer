@@ -23,7 +23,7 @@ export class SynthEngine {
 				type: 'sine',
 			},
 			envelope: {
-				attack: 0.1,
+				attack: 0,
 				decay: 0.2,
 				sustain: 0.7,
 				release: 0.5,
@@ -32,7 +32,7 @@ export class SynthEngine {
 
 		this.filter = new Tone.Filter({
 			type: 'lowpass',
-			frequency: 20000,
+			frequency: this.filterFrequency,
 			Q: 1,
 		});
 
